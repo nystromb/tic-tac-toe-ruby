@@ -1,58 +1,48 @@
 class GameRunner
-  attr_reader :moves
+  attr_reader :moves, :turns
 
   def initialize(output, input)
     @output = output
     @input = input
-    @moves = []
+    @board = ["-","-","-","-","-","-","-","-","-"]
+  end
+  
+  def display_board
+    count = 1
+    @board.each do |spot|
+      @output.print spot
+      if count % 3 == 0
+        @output.puts
+      else
+        @output.print "|"
+      end
+      count += 1
+    end
   end
   
   def run
     @output.puts "Welcome to Tic Tac Toe"
     
-    @output.puts "-|-|-"
-    @output.puts "-|-|-"
-    @output.puts "-|-|-"
+    display_board
     
-    @moves << @input.gets
-    
-    if @moves.first == "1"
-      @output.puts "X|-|-"
-      @output.puts "-|-|-"
-      @output.puts "-|-|-"
-    elsif @moves.first == "2"
-      @output.puts "-|X|-"
-      @output.puts "-|-|-"
-      @output.puts "-|-|-"
-    elsif @moves.first == "3"
-      @output.puts "-|-|X"
-      @output.puts "-|-|-"
-      @output.puts "-|-|-"
-    elsif @moves.first == "4"
-      @output.puts "-|-|-"
-      @output.puts "X|-|-"
-      @output.puts "-|-|-"
-    elsif @moves.first == "5"
-      @output.puts "-|-|-"
-      @output.puts "-|X|-"
-      @output.puts "-|-|-"
-    elsif @moves.first == "6"
-      @output.puts "-|-|-"
-      @output.puts "-|-|X"
-      @output.puts "-|-|-"
-    elsif @moves.first == "7"
-      @output.puts "-|-|-"
-      @output.puts "-|-|-"
-      @output.puts "X|-|-"
-    elsif @moves.first == "8"
-      @output.puts "-|-|-"
-      @output.puts "-|-|-"
-      @output.puts "-|X|-"
-    elsif @moves.first == "9"
-      @output.puts "-|-|-"
-      @output.puts "-|-|-"
-      @output.puts "-|-|X"
+    turn = 1
+    while !(move = @input.gets).nil?
+      if turn.odd?
+        @board[move.to_i-1] = "X"
+      else
+        @board[move.to_i-1] = "O"
+      end
+      
+      
+      turn += 1
     end
+    
+    display_board
+
+    
+
+    
+
   end
   
 end

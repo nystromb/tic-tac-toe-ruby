@@ -4,11 +4,11 @@ require 'game_runner'
 class MockInput
   attr_accessor :input
   def initialize
-    @input = ""
+    @input = []
   end
   
   def gets
-    @input
+    @input.shift
   end
   
 end
@@ -30,16 +30,8 @@ describe GameRunner do
     expect(output.string).to include(welcome_message + "-|-|-\n")
   end
   
-  it 'takes in input' do
-    input.input = "1"
-    
-    runner.run
-    
-    expect(runner.moves.first).to eq("1")
-  end
-  
   it 'displays the guess 1' do
-    input.input = "1"
+    input.input = ["1"]
     
     runner.run
     
@@ -47,7 +39,7 @@ describe GameRunner do
   end
   
   it 'displays the guess 2' do
-    input.input = "2"
+    input.input = ["2"]
     
     runner.run
     
@@ -55,7 +47,7 @@ describe GameRunner do
   end
   
   it 'displays the guess 3' do 
-    input.input = "3"
+    input.input = ["3"]
     
     runner.run
     
@@ -63,7 +55,7 @@ describe GameRunner do
   end
   
   it 'displays the guess 4' do 
-    input.input = "4"
+    input.input = ["4"]
     
     runner.run
     
@@ -71,7 +63,7 @@ describe GameRunner do
   end
   
   it 'displays the guess 5' do
-    input.input = "5"
+    input.input = ["5"]
     
     runner.run
     
@@ -79,7 +71,7 @@ describe GameRunner do
   end
   
   it 'displays the guess 6' do
-    input.input = "6"
+    input.input = ["6"]
     
     runner.run
     
@@ -87,7 +79,7 @@ describe GameRunner do
   end
   
   it 'displays the guess 7' do
-    input.input = "7"
+    input.input = ["7"]
     
     runner.run
     
@@ -95,7 +87,7 @@ describe GameRunner do
   end
   
   it 'displays the guess 8' do
-    input.input = "8"
+    input.input = ["8"]
     
     runner.run
     
@@ -103,11 +95,60 @@ describe GameRunner do
   end
   
   it 'displays the guess 9' do
-    input.input = "9"
+    input.input = ["9"]
     
     runner.run
     
     expect(output.string).to include("-|-|-\n-|-|-\n-|-|X\n")
   end
+  
+  it 'displays the guess 1 and 2' do
+    input.input = ["1", "2"]
+  
+    runner.run
+    
+    expect(output.string).to include("X|O|-\n")
+  end
+  
+  it 'displays the guess 1 and 3' do
+    input.input = "1", "3"
+    
+    runner.run
+    
+    expect(output.string).to include("X|-|O\n")
+  end
+  
+  it 'displays the guess 1 and 4' do
+    input.input = "1", "4"
+    
+    runner.run
+    
+    expect(output.string).to include("X|-|-\nO|-|-\n")
+  end
+  
+  it 'displays the guess 1 and 5' do
+    input.input = "1", "5"
+    
+    runner.run
+    
+    expect(output.string).to include("X|-|-\n-|O|-\n")
+  end
+  
+  it 'displays the guess 1 and 6' do
+    input.input = "1", "6"
+    
+    runner.run
+    
+    expect(output.string).to include("X|-|-\n-|-|O\n")
+  end
+  
+  it 'displays the guess 1 and 7' do
+    input.input = "1", "7"
+    
+    runner.run
+    
+    expect(output.string).to include("X|-|-\n-|-|-\nO|-|-\n")
+  end
+  
 end
   

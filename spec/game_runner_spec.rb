@@ -19,6 +19,7 @@ describe GameRunner do
   let(:input) { MockInput.new }
   let(:runner) { described_class.new(output, input) }
   let(:welcome_message) {"Welcome to Tic Tac Toe\n"}
+  let(:end_game_message) {"Game Over"}
   
   it 'prints a welcome message' do    
     runner.run
@@ -111,7 +112,7 @@ describe GameRunner do
   end
   
   it 'displays the guess 1 and 3' do
-    input.input = "1", "3"
+    input.input =[ "1", "3"]
     
     runner.run
     
@@ -119,7 +120,7 @@ describe GameRunner do
   end
   
   it 'displays the guess 1 and 4' do
-    input.input = "1", "4"
+    input.input = ["1", "4"]
     
     runner.run
     
@@ -127,7 +128,7 @@ describe GameRunner do
   end
   
   it 'displays the guess 1 and 5' do
-    input.input = "1", "5"
+    input.input = ["1", "5"]
     
     runner.run
     
@@ -135,7 +136,7 @@ describe GameRunner do
   end
   
   it 'displays the guess 1 and 6' do
-    input.input = "1", "6"
+    input.input = ["1", "6"]
     
     runner.run
     
@@ -143,11 +144,19 @@ describe GameRunner do
   end
   
   it 'displays the guess 1 and 7' do
-    input.input = "1", "7"
+    input.input = ["1", "7"]
     
     runner.run
     
     expect(output.string).to include("X|-|-\n-|-|-\nO|-|-\n")
+  end
+  
+  it 'displays when turn is 9' do
+    input.input = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+    
+    runner.run
+    
+    expect(output.string).to include(end_game_message)
   end
   
 end

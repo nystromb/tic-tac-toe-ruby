@@ -1,48 +1,52 @@
 class GameRunner
-  attr_reader :moves, :turns
+  attr_reader :moves
 
   def initialize(output, input)
     @output = output
     @input = input
-    @board = ["-","-","-","-","-","-","-","-","-"]
+    @board = {
+      1 => "-",
+      2 => "-",
+      3 => "-",
+      4 => "-",
+      5 => "-",
+      6 => "-",
+      7 => "-",
+      8 => "-",
+      9 => "-"
+      }
   end
   
   def display_board
-    count = 1
-    @board.each do |spot|
-      @output.print spot
-      if count % 3 == 0
-        @output.puts
+    @board.each do |cell_num, contents|
+      @output.print contents
+      if cell_num % 3 == 0
+        @output.puts 
       else
         @output.print "|"
       end
-      count += 1
     end
   end
   
   def run
     @output.puts "Welcome to Tic Tac Toe"
-    
+
     display_board
     
     turn = 1
     while !(move = @input.gets).nil?
       if turn.odd?
-        @board[move.to_i-1] = "X"
+        @board[move.to_i] = "X"
       else
-        @board[move.to_i-1] = "O"
+        @board[move.to_i] = "O"
       end
       
-      
-      turn += 1
+      if (turn += 1) == 9
+        @output.print "Game Over"
+      end
     end
     
     display_board
-
-    
-
-    
-
   end
   
 end

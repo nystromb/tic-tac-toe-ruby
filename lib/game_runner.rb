@@ -40,6 +40,7 @@ class GameRunner
   end
   
   def run
+    
     @output.puts "Welcome to Tic Tac Toe"
 
     display_board
@@ -57,10 +58,12 @@ class GameRunner
       else
         @board[move.to_i] = "O"
       end
-      
+  
+      turn += 1
+  
       display_board
       
-      if (turn += 1) == 9 || game_winner?
+      if turn > 9 || game_winner?
         @output.puts "Game Over"
         
         if game_winner? 
@@ -72,12 +75,5 @@ class GameRunner
         break
       end
     end
-    
   end
-  
-end
-
-if FILE = $0
-  # uncomment to run from the command line
-  #GameRunner.new.run
 end

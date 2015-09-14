@@ -10,9 +10,7 @@ class MockInput
   def gets
     @moves.shift
   end
-  
 end
-
 
 describe GameRunner do
   let(:output) { StringIO.new }
@@ -24,6 +22,7 @@ describe GameRunner do
   let(:draw_game_message) { "Draw game" }
   let(:end_game_message) { "Game Over" }
   let(:error_input_message) { "Invalid input. Try again" }
+
   
   it 'prints a welcome message' do    
     runner.run
@@ -189,14 +188,29 @@ describe GameRunner do
     expect(output.string).to include(draw_game_message)
   end
   
-  it 'displays error message on invalid string input' do
-    input.moves = ["string"]  
+  it 'displays an error message on invalid string input' do
+    input.moves = ["a string"]  
     
     runner.run
     
     expect(output.string).to include(error_input_message)
   end
   
+  it 'displays an error message if input is less than 1' do
+    input.moves = ["0"]
+    
+    runner.run
+    
+    expect(output.string).to include(error_input_message)
+  end
+  
+  it 'displays an error message if input greater than 9' do
+    input.moves = ["10"]
+    
+    runner.run
+    
+    expect(output.string).to include(error_input_message)
+  end
   
 end
   

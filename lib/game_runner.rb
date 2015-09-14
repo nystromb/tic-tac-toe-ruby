@@ -1,6 +1,6 @@
 class GameRunner
 
-  def initialize(output, input)
+  def initialize(output = STDOUT, input = STDIN)
     @output = output
     @input = input
     @board = {
@@ -32,7 +32,7 @@ class GameRunner
     win_check.each do |spot|
       if ((@board.fetch(spot[0]) == "X") && (@board.fetch(spot[1]) == "X") && (@board.fetch(spot[2]) == "X"))
         return true
-        elsif ((@board.fetch(spot[0]) == "O") && (@board.fetch(spot[1]) == "O") && (@board.fetch(spot[2]) == "O"))
+      elsif ((@board.fetch(spot[0]) == "O") && (@board.fetch(spot[1]) == "O") && (@board.fetch(spot[2]) == "O"))
         return true
       end
     end
@@ -45,7 +45,13 @@ class GameRunner
     display_board
     
     turn = 1
-    until (move = @input.get_move).nil?
+    until (move = @input.gets).nil?
+  
+      if move.to_i < 1 || move.to_i > 9
+        @output.puts "Invalid input. Try again"
+        next
+      end
+      
       if turn.odd?
         @board[move.to_i] = "X"
       else
@@ -69,4 +75,9 @@ class GameRunner
     
   end
   
+end
+
+if FILE = $0
+  # uncomment to run from the command line
+  #GameRunner.new.run
 end

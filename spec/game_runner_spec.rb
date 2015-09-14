@@ -7,7 +7,7 @@ class MockInput
     @moves = []
   end
   
-  def get_move
+  def gets
     @moves.shift
   end
   
@@ -23,6 +23,7 @@ describe GameRunner do
   let(:o_wins_message) { "O wins" }
   let(:draw_game_message) { "Draw game" }
   let(:end_game_message) { "Game Over" }
+  let(:error_input_message) { "Invalid input. Try again" }
   
   it 'prints a welcome message' do    
     runner.run
@@ -156,20 +157,12 @@ describe GameRunner do
     expect(output.string).to include("X|-|-\n-|-|-\nO|-|-\n")
   end
   
-  it 'displays when turn is 9' do
+  it 'displays \'Game Over\' when turn is 9' do
     input.moves = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
     
     runner.run
     
     expect(output.string).to include(end_game_message)
-  end
-  
-  it 'displays board when x is at 1, 2, 3' do
-    input.moves = ["1", "5", "2", "6", "3"]
-    
-    runner.run
-    
-    expect(output.string).to include("X|X|X\n-|O|O\n-|-|-\n")
   end
   
   it 'tells you when x wins' do
@@ -195,6 +188,15 @@ describe GameRunner do
     
     expect(output.string).to include(draw_game_message)
   end
+  
+  it 'displays error message on invalid string input' do
+    input.moves = ["string"]  
+    
+    runner.run
+    
+    expect(output.string).to include(error_input_message)
+  end
+  
   
 end
   

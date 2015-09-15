@@ -1,9 +1,9 @@
 require 'stringio'
 require 'game_runner'
 require 'game_board'
+require 'game_model'
 
 class MockOutput < StringIO
-  
   def display(spots)
     spots.each do |spot, contents|
       self.print contents
@@ -13,13 +13,18 @@ class MockOutput < StringIO
 end
 
 class MockInput
-  attr_accessor :moves
+  attr_accessor :moves, :mode
   def initialize
     @moves = []
+    @mode = []
   end
   
-  def gets
+  def gets_move
     @moves.shift
+  end
+  
+  def gets_mode
+    @mode.shift
   end
 end
 
@@ -27,7 +32,8 @@ describe GameRunner do
   let(:output) { MockOutput.new }
   let(:input) { MockInput.new }
   let(:board) { Board.new }
-  let(:runner) { described_class.new(output, input, board) }
+  let(:model) { Model.new }
+  let(:runner) { described_class.new(board, model, output, input) }
   let(:welcome_message) { "Welcome to Tic Tac Toe\n" }
   let(:x_wins_message) { "X wins" }
   let(:o_wins_message) { "O wins" }
@@ -221,6 +227,56 @@ describe GameRunner do
     runner.run
     
     expect(output.string).to include(error_input_message)
+  end
+  
+  it 'displays a prompt for the game mode if not set' do
+    runner.run
+    
+    expect(output.string).to include("Please select a game mode")
+  end
+  
+  it 'displays the set game mode when 1' do
+    input.mode = ["1"]
+    
+    runner.run
+    
+    expect(output.string).to include("Human vs Human")
+  end
+  
+  it 'displays the set game mode when 2' do
+    input.mode = ["2"]
+    
+    runner.run
+    
+    expect(output.string).to include("Human vs Computer")
+  end
+  
+  it 'displays the set game mode when 3' do
+    input.mode = ["3"]
+    
+    runner.run
+    
+    expect(output.string).to include("Computer vs Computer")
+  end
+  
+  it 'doesnt like when input mode is 4' do
+    input.mode = ["4"]
+    
+    runner.run
+    
+    expect(output.string).to include(error_input_message)
+  end
+  
+  it 'doesnt like when input mode is 0' do
+    input.mode = ["0"]
+    
+    runner.run
+    
+    expect(output.string).to include(error_input_message)
+  end
+  
+  it 'wont allow you to make a move in a spot where one has been made' do
+  
   end
 end
   

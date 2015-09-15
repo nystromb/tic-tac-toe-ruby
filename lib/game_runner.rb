@@ -8,17 +8,10 @@ class GameRunner
     @board = board
   end
   
-  def display_board
-    @board.spots.each do |spot, contents|
-      @output.print contents
-      ([3,6,9].include?(spot)) ? (@output.puts) : (@output.print "|")
-    end
-  end
-  
   def run
     @output.puts "Welcome to Tic Tac Toe"
 
-    display_board
+    @output.display(@board.spots)
     
     turn = 1
     while (move = @input.gets)
@@ -37,7 +30,7 @@ class GameRunner
       end
       turn += 1
   
-      display_board
+      @output.display(@board.spots)
       
       if @board.game_winner? || turn > 9
         @output.puts "Game Over"

@@ -2,6 +2,16 @@ require 'stringio'
 require 'game_runner'
 require 'game_board'
 
+class MockOutput < StringIO
+  
+  def display(spots)
+    spots.each do |spot, contents|
+      self.print contents
+      ([3,6,9].include?(spot)) ? (self.puts) : (self.print "|")
+    end
+  end
+end
+
 class MockInput
   attr_accessor :moves
   def initialize
@@ -14,7 +24,7 @@ class MockInput
 end
 
 describe GameRunner do
-  let(:output) { StringIO.new }
+  let(:output) { MockOutput.new }
   let(:input) { MockInput.new }
   let(:board) { Board.new }
   let(:runner) { described_class.new(output, input, board) }

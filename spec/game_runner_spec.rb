@@ -1,5 +1,6 @@
 require 'stringio'
 require 'game_runner'
+require 'game_board'
 
 class MockInput
   attr_accessor :moves
@@ -15,14 +16,14 @@ end
 describe GameRunner do
   let(:output) { StringIO.new }
   let(:input) { MockInput.new }
-  let(:runner) { described_class.new(output, input) }
+  let(:board) { Board.new }
+  let(:runner) { described_class.new(output, input, board) }
   let(:welcome_message) { "Welcome to Tic Tac Toe\n" }
   let(:x_wins_message) { "X wins" }
   let(:o_wins_message) { "O wins" }
   let(:draw_game_message) { "Draw game" }
   let(:end_game_message) { "Game Over" }
   let(:error_input_message) { "Invalid input. Try again" }
-
   
   it 'prints a welcome message' do    
     runner.run
@@ -164,7 +165,7 @@ describe GameRunner do
     expect(output.string).to include(end_game_message)
   end
   
-  it 'tells you when x wins' do
+  it 'displays \'X Wins\' when x wins' do
     input.moves = ["1", "2", "5", "7", "9"]
     
     runner.run
@@ -172,7 +173,7 @@ describe GameRunner do
     expect(output.string).to include(x_wins_message)
   end
   
-  it 'tells you when o wins' do
+  it 'displays \'O Wins\' when o wins' do
     input.moves = ["1", "5", "3", "2", "4", "8"]
     
     runner.run
@@ -180,7 +181,7 @@ describe GameRunner do
     expect(output.string).to include(o_wins_message)
   end
   
-  it 'tells you when its a draw game' do
+  it 'displays \'Draw Game\' when its a draw game' do
     input.moves = ["1", "5", "9", "6", "4", "7", "3", "2", "8"]
     
     runner.run
@@ -211,6 +212,5 @@ describe GameRunner do
     
     expect(output.string).to include(error_input_message)
   end
-  
 end
   

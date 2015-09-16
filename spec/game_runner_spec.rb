@@ -259,7 +259,7 @@ describe GameRunner do
     expect(output.string).to include("Computer vs Computer")
   end
   
-  it 'doesnt like when input mode is 4' do
+  it 'displays error message when input mode is 4' do
     input.mode = ["4"]
     
     runner.run
@@ -267,7 +267,7 @@ describe GameRunner do
     expect(output.string).to include(error_input_message)
   end
   
-  it 'doesnt like when input mode is 0' do
+  it 'displays error message when input mode is 0' do
     input.mode = ["0"]
     
     runner.run
@@ -275,8 +275,13 @@ describe GameRunner do
     expect(output.string).to include(error_input_message)
   end
   
-  it 'wont allow you to make a move in a spot where one has been made' do
-  
+  it 'doesnt allow the game to make the same move twice' do
+    input.moves = ["1", "1"]
+    
+    runner.run
+    
+    expect(output.string).to include(error_input_message)
   end
+  
 end
   

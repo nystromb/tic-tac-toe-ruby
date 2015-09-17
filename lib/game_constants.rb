@@ -1,4 +1,4 @@
-module TicTacToe
+module GameConstants
   X = "X"
   O = "O"
   EMPTY = "-"

@@ -1,10 +1,8 @@
-require './lib/game_runner.rb'
-require './lib/game_board.rb'
-require './lib/game_model.rb'
-require './lib/game_output.rb'
-require './lib/game_input.rb'
+require './lib/game_constants'
+require './lib/game_runner'
+require './lib/game_model'
+require './lib/game_board'
+require './lib/game_output'
+require './lib/game_input'
 
-if FILE = $0
-  game = GameRunner.new(Board.new, Model.new, GameOutput.new, GameInput.new)
-  game.run
-end
+GameRunner.new(GameOutput.new, GameInput.new).run

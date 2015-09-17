@@ -1,47 +1,36 @@
-require 'tic_tac_toe'
 class GameRunner
-  include TicTacToe
-  def initialize(board, model, output, input)
-    @board = board
-    @model = model
+  def initialize(output, input)
     @output = output
     @input = input
-    @turn = 1
   end
-  
+
   def run
-    @model.set_game_mode(@input, @output) if @model.mode.nil?
-    
-    @output.puts "Welcome to Tic Tac Toe"
-    
-    until @board.game_winner? || @turn > MAX_TURNS
+    model = Model.new()
+
+    model.set_game_mode(@input, @output) if model.mode.nil?
+
+    @output.print "Welcome to Tic Tac Toe\n"
+
+    model.display_board(@output)
+
+  until model.game_finished?
       move = @input.gets_move
-  
-      @output.display(@board.spots)
-  
+
       break if move.nil?
 
-      if @model.move_is_valid(@board.spots, move.to_i)
-        if @turn.odd?
-          @board.place(move.to_i, X)
-        else
-          @board.place(move.to_i, O)
-        end
+      if model.move_is_valid(move.to_i)
+        model.play(move.to_i)
+        model.turn += 1
       else
-        @output.puts "Invalid move. Try again"
+        @output.print "Invalid move. Try again\n"
         next
       end
-      @turn += 1
-  
-    end
-    
-    @output.puts "Game Over"
 
-    if @board.game_winner? 
-      @output.puts "#{@board.spots.fetch(move.to_i)} wins" 
-    else
-      @output.puts "Draw game"
+      model.display_board(@output)
     end
 
+    @output.print "Game Over\n"
+
+    model.display_winner(@output)
   end
 end

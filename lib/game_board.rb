@@ -9,12 +9,17 @@ class Board
   def place(move, peice)
     @spots[move] = peice
   end
-
-  def game_winner?
-    WINNING_COMBOS.each do |combo|
-      return true if ((@spots.fetch(combo[0]) == "X") && (@spots.fetch(combo[1]) == "X") && (@spots.fetch(combo[2]) == "X")) || ((@spots.fetch(combo[0]) == "O") && (@spots.fetch(combo[1]) == "O") && (@spots.fetch(combo[2]) == "O"))
+  
+  def empty_spots
+    empty_spots = []
+    @spots.each { |index, peice| empty_spots << index if peice == EMPTY }
+    empty_spots
+  end
+  
+  def match(winning_indexes, game_peice)
+    winning_indexes.each do |index|
+      return true if ((@spots.fetch(index[0]) == game_peice) && (@spots.fetch(index[1]) == game_peice) && (@spots.fetch(index[2]) == game_peice))
     end
     return false
   end
-
 end

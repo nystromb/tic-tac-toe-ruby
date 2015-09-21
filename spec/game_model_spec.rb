@@ -1,5 +1,6 @@
 require 'game_constants'
 require 'game_player'
+require 'game_random_player'
 require 'game_model'
 require 'game_board'
 
@@ -128,5 +129,25 @@ describe Model do
     expect(test_model.current_player.class).to eq(Player)
   end
   
+  it 'switches current_player from player1 turn to player2' do
+    test_model = model
+    
+    expect(test_model.current_player).to eq(test_model.player1)
+    
+    test_model.switch_turns
+    
+    expect(test_model.current_player).to eq(test_model.player2)
+  end
   
+  it 'switches current_player from player2 turn to player1 turn' do
+    test_model = model
+    
+    test_model.switch_turns
+    
+    expect(test_model.current_player).to eq(test_model.player2)
+    
+    test_model.switch_turns
+    
+    expect(test_model.current_player).to eq(test_model.player1)
+  end
 end

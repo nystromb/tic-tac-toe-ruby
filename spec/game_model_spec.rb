@@ -33,8 +33,10 @@ describe Model do
     expect(model.move_is_valid(1)).to eq(false)
   end
   
-  it 'game is complete if turns is > 9' do
+  it 'game is complete if the board is full' do
     test_model = model
+    
+    test_model.init_players(1)
     
     9.times do |spot|
       test_model.play(spot)
@@ -43,16 +45,10 @@ describe Model do
     expect(test_model.game_complete?).to eq(true)
   end
   
-  it 'game is not complete if turns is <= 9' do
-    test_model = model
-    
-    test_model.turn = 6
-    
-    expect(test_model.game_complete?).to eq(false)
-  end
-  
   it 'game is complete if X has a winning combination' do
     test_model = model
+    
+    test_model.init_players(1)
     
     test_model.play(1) #X
     test_model.play(2) #X
@@ -64,7 +60,9 @@ describe Model do
   it 'game is complete if O has a winning combination' do
     test_model = model
     
-    test_model.turn = 2
+    test_model.init_players(1)
+    
+    test_model.switch_turns
     
     test_model.play(4) #O
     test_model.play(5) #O

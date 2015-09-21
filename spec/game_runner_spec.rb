@@ -183,7 +183,7 @@ describe GameRunner do
     expect(output.string).to include(end_game_message)
   end
   
-  xit 'displays \'X Wins\' when x wins' do
+  it 'displays \'X Wins\' when x wins' do
     input.moves = ["1", "2", "5", "7", "9"]
     
     runner.run
@@ -191,7 +191,7 @@ describe GameRunner do
     expect(output.string).to include(x_wins_message)
   end
   
-  xit 'displays \'O Wins\' when o wins' do
+  it 'displays \'O Wins\' when o wins' do
     input.moves = ["1", "5", "3", "2", "4", "8"]
     
     runner.run
@@ -199,7 +199,7 @@ describe GameRunner do
     expect(output.string).to include(o_wins_message)
   end
   
-  xit 'displays \'Draw Game\' when its a draw game' do
+  it 'displays \'Draw Game\' when its a draw game' do
     input.moves = ["1", "5", "9", "6", "4", "7", "3", "2", "8"]
     
     runner.run
@@ -235,30 +235,6 @@ describe GameRunner do
     runner.run
     
     expect(output.string).to include("Please select a game mode")
-  end
-  
-  xit 'displays the set game mode when 1' do
-    input.mode = ["1"]
-    
-    runner.run
-    
-    expect(output.string).to include("Human vs Human")
-  end
-  
-  it 'displays the set game mode when 2' do
-    input.mode = ["2"]
-    
-    runner.run
-    
-    expect(output.string).to include("Human vs Computer")
-  end
-  
-  it 'displays the set game mode when 3' do
-    input.mode = ["3"]
-    
-    runner.run
-    
-    expect(output.string).to include("Computer vs Computer")
   end
   
   it 'displays error message when input mode is 4' do

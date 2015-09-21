@@ -42,6 +42,6 @@ class GameRunner
 
     @output.print "Game Over\n"
 
-    #@model.display_winner(@output)
+    @model.display_winner(@output)
   end
 end

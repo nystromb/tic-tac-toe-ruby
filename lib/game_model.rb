@@ -1,26 +1,38 @@
 class Model
   include GameConstants
   
-  attr_accessor :mode, :turn
+  attr_accessor :turn, :player1, :player2, :current_player
+  
   def initialize(board = Board.new)
     @board = board
-    @mode = nil
     @turn = 1
+  end
+  
+  def init_players(mode)
+    case mode
+    when HUMAN_VS_HUMAN
+      @player1 = Player.new
+      @player2 = Player.new
+    when HUMAN_VS_COMPUTER
+      @player1 = Player.new
+      @player2 = RandomPlayer.new
+    when COMPUTER_VS_COMPUTER
+      @player1 = RandomPlayer.new
+      @player2 = RandomPlayer.new
+    end
+    @current_player = @player1
   end
 
   def move_is_valid(move)
     (@board.spots[move] == EMPTY) && (1..9).include?(move)
   end
-
-  def game_finished?
-    @board.game_winner? || @turn > MAX_TURNS
+  
+  def game_complete?  
+    (@board.empty_spots.length == 0) || @board.match(WINNING_COMBOS, X) || @board.match(WINNING_COMBOS, O)
   end
   
-  def display_board(output)
-    @board.spots.each do |spot, contents|
-      output.print contents
-      ([3,6,9].include?(spot)) ? (output.puts) : (output.print "|")
-    end
+  def get_computer_move
+    @current_player.get_move(@board)
   end
   
   def play(move)
@@ -30,22 +42,15 @@ class Model
       @board.place(move, O)
     end
   end
-
-  def display_winner(output)
-    if @board.game_winner?
-
-    else
-      output.print "Draw game"
+  
+  def display_board(output)
+    @board.spots.each do |spot, contents|
+      output.print contents
+      if spot % 3 == 0
+        output.puts
+      else
+        output.print "|"
+      end
     end
-  end
-
-  def set_game_mode(input, output)
-    output.puts "Please select a game mode\n 1. Human vs Human\n 2. Human vs Computer\n 3. Computer vs Computer\n"
-    mode = input.gets_mode
-    unless (mode.to_i >= 1) && (mode.to_i <= 3)
-      output.puts "Invalid input. Try again"
-      mode = input.gets_mode
-    end
-    self.mode = mode.to_i
   end
 end

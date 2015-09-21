@@ -1,4 +1,5 @@
 require 'game_constants'
+require 'game_player'
 require 'game_model'
 require 'game_board'
 
@@ -30,4 +31,102 @@ describe Model do
     
     expect(model.move_is_valid(1)).to eq(false)
   end
+  
+  it 'game is complete if turns is > 9' do
+    test_model = model
+    
+    9.times do |spot|
+      test_model.play(spot)
+    end
+    
+    expect(test_model.game_complete?).to eq(true)
+  end
+  
+  it 'game is not complete if turns is <= 9' do
+    test_model = model
+    
+    test_model.turn = 6
+    
+    expect(test_model.game_complete?).to eq(false)
+  end
+  
+  it 'game is complete if X has a winning combination' do
+    test_model = model
+    
+    test_model.play(1) #X
+    test_model.play(2) #X
+    test_model.play(3) #X
+    
+    expect(test_model.game_complete?).to eq(true)
+  end
+  
+  it 'game is complete if O has a winning combination' do
+    test_model = model
+    
+    test_model.turn = 2
+    
+    test_model.play(4) #O
+    test_model.play(5) #O
+    test_model.play(6) #O
+
+    expect(test_model.game_complete?).to eq(true)
+  end
+  
+  it 'player1 is of the Player class when mode is Human vs Human' do
+    test_model = model 
+    
+    test_model.init_players(GameConstants::HUMAN_VS_HUMAN)
+    
+    expect(test_model.player1.class).to eq(Player)
+  end
+  
+  it 'player2 is of the Player class when mode is Human vs Human' do
+    test_model = model 
+    
+    test_model.init_players(GameConstants::HUMAN_VS_HUMAN)
+    
+    expect(test_model.player2.class).to eq(Player)
+  end
+  
+  it 'player1 is a Player when game mode is Human vs Computer' do
+    test_model = model
+    
+    test_model.init_players(GameConstants::HUMAN_VS_COMPUTER)
+    
+    expect(test_model.player1.class).to eq(Player)
+  end
+  
+  it 'player2 is a RandomPlayer when game mode is Human vs Computer' do
+    test_model = model
+    
+    test_model.init_players(GameConstants::HUMAN_VS_COMPUTER)
+    
+    expect(test_model.player2.class).to eq(RandomPlayer)
+  end
+  
+  it 'player1 is a RandomPlayer when the game mode is Computer vs Computer' do
+    test_model = model
+    
+    test_model.init_players(GameConstants::COMPUTER_VS_COMPUTER)
+    
+    expect(test_model.player1.class).to eq(RandomPlayer)
+  end
+  
+  it 'player2 is a RandomPlayer when the game mode is Computer vs Computer' do
+    test_model = model
+    
+    test_model.init_players(GameConstants::COMPUTER_VS_COMPUTER)
+    
+    expect(test_model.player2.class).to eq(RandomPlayer)
+  end
+  
+  it 'current player is player1 when you init_players' do
+    test_model = model
+    
+    test_model.init_players(GameConstants::HUMAN_VS_COMPUTER)
+    
+    expect(test_model.current_player.class).to eq(Player)
+  end
+  
+  
 end

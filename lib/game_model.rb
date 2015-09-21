@@ -44,7 +44,7 @@ class Model
   end
   
   def play(move)
-    @board.place(move, @current_player.game_peice)
+    @board.place(move, @current_player.game_piece)
   end
   
   def switch_turns

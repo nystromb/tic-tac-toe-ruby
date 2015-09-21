@@ -1,24 +1,30 @@
 class Model
   include GameConstants
   
-  attr_accessor :turn, :player1, :player2, :current_player
+  attr_accessor :player1, :player2, :current_player
   
   def initialize(board = Board.new)
     @board = board
-    @turn = 1
-    @player1 = Player.new
-    @player2 = Player.new
-    @current_player = @player1
+    init_players(1)
   end
   
   def init_players(mode)
     case mode
+    when HUMAN_VS_HUMAN
+      @player1 = Player.new
+      @player2 = Player.new
     when HUMAN_VS_COMPUTER
+      @player1 = Player.new
       @player2 = RandomPlayer.new
     when COMPUTER_VS_COMPUTER
       @player1 = RandomPlayer.new
       @player2 = RandomPlayer.new
     end
+    
+    @player1.game_piece = X
+    @player2.game_piece = O
+    
+    @current_player = @player1
   end
 
   def move_is_valid(move)
@@ -38,11 +44,7 @@ class Model
   end
   
   def play(move)
-    if @turn.odd?
-      @board.place(move, X)
-    else
-      @board.place(move, O)
-    end
+    @board.place(move, @current_player.game_peice)
   end
   
   def switch_turns
@@ -63,4 +65,15 @@ class Model
       end
     end
   end
+  
+  def display_winner(output)
+    if @board.match(WINNING_COMBOS, X)
+      output.print "X wins"
+    elsif @board.match(WINNING_COMBOS, O)
+      output.print "O wins"
+    else
+      output.print "Draw game"
+    end
+  end
+  
 end

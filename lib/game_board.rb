@@ -1,4 +1,6 @@
-class Board  
+require './lib/game_constants'
+
+class Board
   include GameConstants
   
   attr_reader :spots

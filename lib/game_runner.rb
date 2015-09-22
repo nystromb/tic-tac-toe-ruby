@@ -1,3 +1,5 @@
+require './lib/game_model'
+
 class GameRunner
   def initialize(output, input, model = Model.new)
     @output = output

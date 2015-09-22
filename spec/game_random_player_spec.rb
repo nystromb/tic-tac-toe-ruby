@@ -1,5 +1,4 @@
 require 'game_random_player'
-require 'game_constants'
 require 'game_board'
 
 describe RandomPlayer do

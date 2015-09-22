@@ -1,3 +1,8 @@
+require './lib/game_constants'
+require './lib/game_board'
+require './lib/game_player'
+require './lib/game_random_player'
+
 class Model
   include GameConstants
   
@@ -68,12 +73,11 @@ class Model
   
   def display_winner(output)
     if @board.match(WINNING_COMBOS, X)
-      output.print "X wins"
+      output.print "X wins\n"
     elsif @board.match(WINNING_COMBOS, O)
-      output.print "O wins"
+      output.print "O wins\n"
     else
-      output.print "Draw game"
+      output.print "Draw game\n"
     end
   end
-  
 end

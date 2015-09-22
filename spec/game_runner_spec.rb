@@ -1,11 +1,5 @@
 require 'stringio'
 require 'game_runner'
-require 'game_constants'
-require 'game_model'
-require 'game_board'
-require 'game_player'
-require 'game_random_player'
-
 
 class MockOutput < StringIO
   def display(spots)
@@ -261,4 +255,3 @@ describe GameRunner do
     expect(output.string).to include(error_input_message)
   end
 end
-  

@@ -1,4 +1,3 @@
-require 'game_constants'
 require 'game_board'
 
 describe Board do
@@ -67,7 +66,7 @@ describe Board do
     expect(test_board.match(GameConstants::WINNING_COMBOS, GameConstants::O)).to eq(true)
   end
   
-  it 'let you know if there are no empty locations' do
+  it 'can return the empty game board locations, if any' do
     test_board = board
     
     test_board.place(1, GameConstants::O)

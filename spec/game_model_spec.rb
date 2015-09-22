@@ -1,8 +1,4 @@
-require 'game_constants'
-require 'game_player'
-require 'game_random_player'
 require 'game_model'
-require 'game_board'
 
 describe Model do
   let(:model) { Model.new }

@@ -31,6 +31,7 @@ class GameRunner
         @output.print "Invalid input. Try again\n"
         next
       end
+  
       game.switch_turns
       @output.display_board(game.board)
     end

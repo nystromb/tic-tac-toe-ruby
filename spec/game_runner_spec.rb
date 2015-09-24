@@ -2,10 +2,22 @@ require 'stringio'
 require 'game_runner'
 
 class MockOutput < StringIO
-  def display(spots)
-    spots.each do |spot, contents|
+  include GameConstants
+  
+  def display_board(board)
+    board.spots.each do |spot, contents|
       self.print contents
       ([3,6,9].include?(spot)) ? (self.puts) : (self.print "|")
+    end
+  end
+  
+  def display_winner(board)
+    if board.match(WINNING_COMBOS, X)
+      self.print "X wins\n"
+    elsif board.match(WINNING_COMBOS, O)
+      self.print "O wins\n"
+    else
+      self.print "Draw game\n"
     end
   end
 end

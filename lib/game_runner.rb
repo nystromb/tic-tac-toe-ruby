@@ -1,10 +1,10 @@
 require './lib/game_model'
 
 class GameRunner
-  def initialize(output, input, model = Model.new)
+  
+  def initialize(output, input)
     @output = output
     @input = input
-    @model = model
   end
   
   def get_game_mode(input, output)
@@ -17,33 +17,37 @@ class GameRunner
     mode.to_i
   end
   
-  def run
-    mode = get_game_mode(@input, @output)
+  def run(mode = nil)
+    mode = get_game_mode(@input, @output) if mode.nil?
     
-    @model.init_players(mode)
+    @model = Model.new(mode)
     
     @output.print "Welcome to Tic Tac Toe\n"
 
     @model.display_board(@output)
 
-    until @model.game_complete?
-      move = @model.get_player_move(@input)
+    until @model.is_over?
+      if @model.current_player.class == Player
+        move = @input.gets_move
+      else
+        move = @model.current_player.get_move(@model.clone)
+      end
   
       break if move.nil?
 
       if @model.move_is_valid(move.to_i)
+        @output.puts "Played move #{move}"
         @model.play(move.to_i)
-        @model.switch_turns
       else
         @output.print "Invalid input. Try again\n"
         next
       end
-
+      @model.switch_turns
       @model.display_board(@output)
     end
 
     @output.print "Game Over\n"
-
+    @model.display_board(@output)
     @model.display_winner(@output)
   end
 end

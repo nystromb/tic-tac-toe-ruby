@@ -19,7 +19,7 @@ class Model
   end
   
   def move_is_valid(move)
-    (@board.spots[move] == EMPTY) && (move >= 1 && move <= 9)
+    (@board[move] == EMPTY) && (move >= 1 && move <= 9)
   end
   
   def is_over?  

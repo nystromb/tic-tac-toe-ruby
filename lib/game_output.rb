@@ -10,7 +10,7 @@ class GameOutput
   end
   
   def display_board(board)
-    board.spots.each do |spot, contents|
+    board.each do |spot, contents|
       print contents
       if spot % 3 == 0
         $stdout.puts

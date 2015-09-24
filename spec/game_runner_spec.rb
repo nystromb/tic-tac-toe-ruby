@@ -5,7 +5,7 @@ class MockOutput < StringIO
   include GameConstants
   
   def display_board(board)
-    board.spots.each do |spot, contents|
+    board.each do |spot, contents|
       self.print contents
       ([3,6,9].include?(spot)) ? (self.puts) : (self.print "|")
     end

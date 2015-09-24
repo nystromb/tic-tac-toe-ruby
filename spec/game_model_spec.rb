@@ -1,7 +1,7 @@
 require 'game_model'
 
 describe Model do
-  let(:model) { Model.new }
+  let(:model) { Model.new(1)}
   
   it '#move_is_valid returns true for input 1' do
     expect(model.move_is_valid(9)).to eq(true)
@@ -32,31 +32,25 @@ describe Model do
   it 'game is complete if the board is full' do
     test_model = model
     
-    test_model.init_players(1)
-    
     9.times do |spot|
       test_model.play(spot)
     end
     
-    expect(test_model.game_complete?).to eq(true)
+    expect(test_model.is_over?).to eq(true)
   end
   
   it 'game is complete if X has a winning combination' do
     test_model = model
     
-    test_model.init_players(1)
-    
     test_model.play(1) #X
     test_model.play(2) #X
     test_model.play(3) #X
     
-    expect(test_model.game_complete?).to eq(true)
+    expect(test_model.is_over?).to eq(true)
   end
   
   it 'game is complete if O has a winning combination' do
     test_model = model
-    
-    test_model.init_players(1)
     
     test_model.switch_turns
     
@@ -64,73 +58,53 @@ describe Model do
     test_model.play(5) #O
     test_model.play(6) #O
 
-    expect(test_model.game_complete?).to eq(true)
+    expect(test_model.is_over?).to eq(true)
   end
   
   it 'player1 is of the Player class when mode is Human vs Human' do
     test_model = model 
     
-    test_model.init_players(GameConstants::HUMAN_VS_HUMAN)
-    
-    expect(test_model.player1.class).to eq(Player)
+    expect(test_model.players[1].class).to eq(Player)
   end
   
   it 'player2 is of the Player class when mode is Human vs Human' do
     test_model = model 
     
-    test_model.init_players(GameConstants::HUMAN_VS_HUMAN)
-    
-    expect(test_model.player2.class).to eq(Player)
+    expect(test_model.players[2].class).to eq(Player)
   end
   
   it 'player1 is a Player when game mode is Human vs Computer' do
-    test_model = model
-    
-    test_model.init_players(GameConstants::HUMAN_VS_COMPUTER)
-    
-    expect(test_model.player1.class).to eq(Player)
+    test_model = Model.new(2)
+        
+    expect(test_model.players[1].class).to eq(Player)
   end
   
   it 'player2 is a RandomPlayer when game mode is Human vs Computer' do
-    test_model = model
-    
-    test_model.init_players(GameConstants::HUMAN_VS_COMPUTER)
-    
-    expect(test_model.player2.class).to eq(RandomPlayer)
+    test_model = Model.new(2)
+      
+    expect(test_model.players[2].class).to eq(UnbeatablePlayer)
   end
   
   it 'player1 is a RandomPlayer when the game mode is Computer vs Computer' do
-    test_model = model
-    
-    test_model.init_players(GameConstants::COMPUTER_VS_COMPUTER)
-    
-    expect(test_model.player1.class).to eq(RandomPlayer)
+    test_model = Model.new(3)
+      
+    expect(test_model.players[1].class).to eq(UnbeatablePlayer)
   end
   
   it 'player2 is a RandomPlayer when the game mode is Computer vs Computer' do
-    test_model = model
-    
-    test_model.init_players(GameConstants::COMPUTER_VS_COMPUTER)
-    
-    expect(test_model.player2.class).to eq(RandomPlayer)
-  end
-  
-  it 'current player is player1 when you init_players' do
-    test_model = model
-    
-    test_model.init_players(GameConstants::HUMAN_VS_COMPUTER)
-    
-    expect(test_model.current_player.class).to eq(Player)
+    test_model = Model.new(3)
+        
+    expect(test_model.players[2].class).to eq(UnbeatablePlayer)
   end
   
   it 'switches current_player from player1 turn to player2' do
     test_model = model
     
-    expect(test_model.current_player).to eq(test_model.player1)
+    expect(test_model.current_player).to eq(test_model.players[1])
     
     test_model.switch_turns
     
-    expect(test_model.current_player).to eq(test_model.player2)
+    expect(test_model.current_player).to eq(test_model.players[2])
   end
   
   it 'switches current_player from player2 turn to player1 turn' do
@@ -138,10 +112,10 @@ describe Model do
     
     test_model.switch_turns
     
-    expect(test_model.current_player).to eq(test_model.player2)
+    expect(test_model.current_player).to eq(test_model.players[2])
     
     test_model.switch_turns
     
-    expect(test_model.current_player).to eq(test_model.player1)
+    expect(test_model.current_player).to eq(test_model.players[1])
   end
 end

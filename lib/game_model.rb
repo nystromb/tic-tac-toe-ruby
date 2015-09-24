@@ -37,4 +37,8 @@ class Model
       @current_player = @players[1]
     end
   end
+  
+  def reset
+    @board.clear
+  end
 end

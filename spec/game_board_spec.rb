@@ -2,14 +2,21 @@ require 'game_board'
 
 describe Board do
   let(:board) { Board.new }
-  include GameConstants
+  
+  it 'clears each spot to EMPTY' do
+    expect(board.fetch(1)).to eq(GameConstants::EMPTY)
+  end  
+  
+  it 'clears each spot to EMPTY' do
+    expect(board.fetch(9)).to eq(GameConstants::EMPTY)
+  end
   
   it 'can place moves on the board' do
     test_board = board
     
     test_board.place(1, "X")
     
-    expect(board.spots.fetch(1)).to eq("X")  
+    expect(board.fetch(1)).to eq("X")  
   end
   
   it 'returns the indexes of the empty board spaces' do

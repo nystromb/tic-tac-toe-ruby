@@ -1,26 +1,31 @@
 require './lib/game_constants'
 
-class Board
+class Board < Hash
   include GameConstants
-  
-  attr_reader :spots
+
   def initialize
-    @spots = { 1 => EMPTY, 2 => EMPTY, 3 => EMPTY, 4 => EMPTY, 5 => EMPTY, 6 => EMPTY, 7 => EMPTY, 8 => EMPTY, 9 => EMPTY }
+    clear
+  end
+  
+  def clear
+    for spot in 1..MAX_SPOTS
+      self[spot] = EMPTY
+    end
   end
 
   def place(move, peice)
-    @spots[move] = peice
+    self[move] = peice
   end
   
   def empty_spots
     empty_spots = []
-    @spots.each { |index, peice| empty_spots << index if peice == EMPTY }
+    self.each { |index, peice| empty_spots << index if peice == EMPTY }
     empty_spots
   end
   
   def match(winning_indexes, game_peice)
     winning_indexes.each do |index|
-      return true if ((@spots.fetch(index[0]) == game_peice) && (@spots.fetch(index[1]) == game_peice) && (@spots.fetch(index[2]) == game_peice))
+      return true if ((self.fetch(index[0]) == game_peice) && (self.fetch(index[1]) == game_peice) && (self.fetch(index[2]) == game_peice))
     end
     return false
   end

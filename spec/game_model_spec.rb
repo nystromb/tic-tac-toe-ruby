@@ -118,4 +118,12 @@ describe Model do
     
     expect(test_model.current_player).to eq(test_model.players[1])
   end
+  
+  it 'sets default player' do
+    test_model = model
+    
+    test_model.set_current_player
+    
+    expect(test_model.current_player).to eq(test_model.players[1])
+  end
 end

@@ -1,62 +1,37 @@
 require './lib/game_constants'
 require './lib/game_board'
-require './lib/game_player'
-require './lib/game_random_player'
+require './lib/game_player_factory'
 
 class Model
   include GameConstants
+  include PlayerFactory
   
-  attr_accessor :player1, :player2, :current_player
+  attr_accessor :players, :current_player
+  attr_reader :board
   
-  def initialize(board = Board.new)
+  def initialize(mode, board = Board.new)
+    @players = PlayerFactory.createPlayers(mode)
     @board = board
-    init_players(1)
-  end
-  
-  def init_players(mode)
-    case mode
-    when HUMAN_VS_HUMAN
-      @player1 = Player.new
-      @player2 = Player.new
-    when HUMAN_VS_COMPUTER
-      @player1 = Player.new
-      @player2 = RandomPlayer.new
-    when COMPUTER_VS_COMPUTER
-      @player1 = RandomPlayer.new
-      @player2 = RandomPlayer.new
-    end
-    
-    @player1.game_piece = X
-    @player2.game_piece = O
-    
-    @current_player = @player1
+    @current_player = @players[1]
   end
 
   def move_is_valid(move)
-    (@board.spots[move] == EMPTY) && (1..9).include?(move)
+    (@board.spots[move] == EMPTY) && (move >= 1 && move <= 9)
   end
   
-  def game_complete?  
+  def is_over?  
     (@board.empty_spots.length == 0) || @board.match(WINNING_COMBOS, X) || @board.match(WINNING_COMBOS, O)
   end
   
-  def get_player_move(input)
-    if @current_player.class == Player
-      @current_player.get_move(input)
-    else
-      @current_player.get_move(@board)
-    end
-  end
-  
-  def play(move)
-    @board.place(move, @current_player.game_piece)
+  def play(move, peice = @current_player.game_piece)
+    @board.place(move, peice)
   end
   
   def switch_turns
-    if @current_player == @player1
-      @current_player = @player2
+    if @current_player == @players[1]
+      @current_player = @players[2]
     else
-      @current_player = @player1
+      @current_player = @players[1]
     end
   end
   

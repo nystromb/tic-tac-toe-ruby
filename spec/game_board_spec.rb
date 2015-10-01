@@ -73,7 +73,7 @@ describe Board do
     test_board = board
 
     test_board.place(3, GameConstants::X)
-    test_board.place(5, X)
+    test_board.place(5, GameConstants::X)
     test_board.place(7, GameConstants::X)
 
     expect(test_board.win(GameConstants::X)).to eq(true)

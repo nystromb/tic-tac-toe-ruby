@@ -7,9 +7,9 @@ class Model
   include PlayerFactory
 
   attr_reader :board, :current_player, :players
-  
-  def initialize(mode)
-    @board = Board.new
+
+  def initialize(mode, size)
+    @board = Board.new(size)
     @players = PlayerFactory.createPlayers(mode)
     set_current_player
   end
@@ -17,19 +17,19 @@ class Model
   def set_current_player(number = 1)
     @current_player = @players[number]
   end
-  
+
   def move_is_valid(move)
-    (@board[move] == EMPTY) && (move >= 1 && move <= 9)
+    (@board[move] == EMPTY) && (move >= 1 && move <= @board.cell_count)
   end
-  
-  def is_over?  
-    (@board.empty_spots.length == 0) || @board.match(WINNING_COMBOS, X) || @board.match(WINNING_COMBOS, O)
+
+  def is_over?
+    (@board.empty_spots.length == 0) || @board.win(X) || @board.win(O)
   end
-  
+
   def play(move, peice = @current_player.game_piece)
     @board.place(move, peice)
   end
-  
+
   def switch_turns
     if @current_player == @players[1]
       @current_player = @players[2]
@@ -37,7 +37,7 @@ class Model
       @current_player = @players[1]
     end
   end
-  
+
   def reset
     @board.clear
   end

@@ -41,9 +41,9 @@ class UnbeatablePlayer < Player
   end
   
   def score(board, depth)
-    if board.match(WINNING_COMBOS, X)
+    if board.win(X)
       return (10 - depth)
-    elsif board.match(WINNING_COMBOS, O)
+    elsif board.win(O)
       return (depth - 10)
     else
       return 0

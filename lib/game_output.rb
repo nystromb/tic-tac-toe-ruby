@@ -1,29 +1,29 @@
 class GameOutput
   include GameConstants
-  
+
   def puts(string = "\n")
     $stdout.puts string
   end
-  
+
   def print(string)
     $stdout.print string
   end
-  
+
   def display_board(board)
     board.each do |spot, contents|
-      print contents
-      if spot % 3 == 0
+      $stdout.print contents
+      if (spot % board.size) == 0
         $stdout.puts
       else
         $stdout.print "|"
       end
     end
   end
-  
+
   def display_winner(board)
-    if board.match(WINNING_COMBOS, X)
+    if board.win(X)
       $stdout.print "X wins\n"
-    elsif board.match(WINNING_COMBOS, O)
+    elsif board.win(O)
       $stdout.print "O wins\n"
     else
       $stdout.print "Draw game\n"

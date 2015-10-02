@@ -79,7 +79,7 @@ describe Model do
   it 'player1 is a RandomPlayer when the game mode is Computer vs Computer' do
     model = Model.new(board, GameModes::COMPUTER_VS_COMPUTER)
 
-    expect(test_model.players[1].class).to eq(UnbeatablePlayer)
+    expect(model.players[1].class).to eq(UnbeatablePlayer)
   end
 
   it 'player2 is a RandomPlayer when the game mode is Computer vs Computer' do

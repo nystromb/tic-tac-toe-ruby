@@ -25,7 +25,7 @@ class GameRunner
 
     @output.print "The board size is #{@board_size}x#{@board_size}\n"
 
-    @game = Model.new(@mode, @board_size)
+    @game = Model.new(Board.new, @mode)
   end
 
   def run

@@ -1,9 +1,11 @@
 require './lib/game_player'
 require './lib/game_random_player'
 require './lib/game_unbeatable_player'
+require './lib/game_modes'
 
 module PlayerFactory 
-  include GameConstants
+  include GameModes
+  include GamePieces
   
   def self.createPlayers(mode)
     case mode

@@ -2,7 +2,7 @@ require 'stringio'
 require 'game_runner'
 
 class MockOutput < StringIO
-  include GameConstants
+  include GamePieces
 
   def display_board(board)
     board.each do |spot, contents|

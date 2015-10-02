@@ -15,14 +15,14 @@ describe RandomPlayer do
   it 'gets open move' do
     model = Model.new(1, 3)
 
-    model.play(1, GameConstants::X)
-    model.play(2, GameConstants::X)
-    model.play(3, GameConstants::X)
-    model.play(4, GameConstants::X)
-    model.play(5, GameConstants::X)
-    model.play(6, GameConstants::X)
-    model.play(7, GameConstants::X)
-    model.play(8, GameConstants::X)
+    model.play(1, GamePieces::X)
+    model.play(2, GamePieces::X)
+    model.play(3, GamePieces::X)
+    model.play(4, GamePieces::X)
+    model.play(5, GamePieces::X)
+    model.play(6, GamePieces::X)
+    model.play(7, GamePieces::X)
+    model.play(8, GamePieces::X)
 
     expect(player.get_move(model)).to eq(9)
   end

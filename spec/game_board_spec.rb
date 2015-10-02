@@ -1,4 +1,4 @@
-require 'game_board'
+require './lib/game_board'
 
 describe Board do
   let(:board) { Board.new(3) }
@@ -19,11 +19,11 @@ describe Board do
   end
 
   it 'clears each spot to EMPTY' do
-    expect(board.fetch(1)).to eq(GameConstants::EMPTY)
+    expect(board.fetch(1)).to eq(GamePieces::EMPTY)
   end
 
   it 'clears each spot to EMPTY' do
-    expect(board.fetch(9)).to eq(GameConstants::EMPTY)
+    expect(board.fetch(9)).to eq(GamePieces::EMPTY)
   end
 
   it 'can place moves on the board' do
@@ -52,11 +52,11 @@ describe Board do
     test_board.place(3, "X")
     test_board.place(4, "X")
 
-    expect(test_board.win(GameConstants::X)).to be_truthy
+    expect(test_board.win(GamePieces::X)).to be_truthy
   end
 
   it 'matches a set of game winning indexes to a game peice' do
-    expect(board.win(GameConstants::X)).to eq(false)
+    expect(board.win(GamePieces::X)).to eq(false)
   end
 
   it 'matches if X is at spots 1, 2, and 3' do
@@ -66,51 +66,51 @@ describe Board do
     test_board.place(2, "X")
     test_board.place(3, "X")
 
-    expect(test_board.win(GameConstants::X)).to eq(true)
+    expect(test_board.win(GamePieces::X)).to eq(true)
   end
 
   it 'matches if X is at spots 3, 5, and 7' do
     test_board = board
 
-    test_board.place(3, GameConstants::X)
-    test_board.place(5, GameConstants::X)
-    test_board.place(7, GameConstants::X)
+    test_board.place(3, GamePieces::X)
+    test_board.place(5, GamePieces::X)
+    test_board.place(7, GamePieces::X)
 
-    expect(test_board.win(GameConstants::X)).to eq(true)
+    expect(test_board.win(GamePieces::X)).to eq(true)
   end
 
   it 'matches if O is at spots 1, 2, and 3' do
     test_board = board
 
-    test_board.place(1, GameConstants::O)
-    test_board.place(2, GameConstants::O)
-    test_board.place(3, GameConstants::O)
+    test_board.place(1, GamePieces::O)
+    test_board.place(2, GamePieces::O)
+    test_board.place(3, GamePieces::O)
 
-    expect(test_board.win(GameConstants::O)).to eq(true)
+    expect(test_board.win(GamePieces::O)).to eq(true)
   end
 
   it 'matches if O is at spots 1, 4, and 7' do
     test_board = board
 
-    test_board.place(1, GameConstants::O)
-    test_board.place(4, GameConstants::O)
-    test_board.place(7, GameConstants::O)
+    test_board.place(1, GamePieces::O)
+    test_board.place(4, GamePieces::O)
+    test_board.place(7, GamePieces::O)
 
-    expect(test_board.win(GameConstants::O)).to eq(true)
+    expect(test_board.win(GamePieces::O)).to eq(true)
   end
 
   it 'can return the empty game board locations, if any' do
     test_board = board
 
-    test_board.place(1, GameConstants::O)
-    test_board.place(2, GameConstants::O)
-    test_board.place(3, GameConstants::O)
-    test_board.place(4, GameConstants::O)
-    test_board.place(5, GameConstants::O)
-    test_board.place(6, GameConstants::O)
-    test_board.place(7, GameConstants::O)
-    test_board.place(8, GameConstants::O)
-    test_board.place(9, GameConstants::O)
+    test_board.place(1, GamePieces::O)
+    test_board.place(2, GamePieces::O)
+    test_board.place(3, GamePieces::O)
+    test_board.place(4, GamePieces::O)
+    test_board.place(5, GamePieces::O)
+    test_board.place(6, GamePieces::O)
+    test_board.place(7, GamePieces::O)
+    test_board.place(8, GamePieces::O)
+    test_board.place(9, GamePieces::O)
 
     expect(test_board.empty_spots.length).to eq(0)
   end

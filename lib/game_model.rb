@@ -1,9 +1,9 @@
-require './lib/game_constants'
+require './lib/game_pieces'
 require './lib/game_board'
 require './lib/game_player_factory'
 
 class Model
-  include GameConstants
+  include GamePieces
   include PlayerFactory
 
   attr_reader :board, :current_player, :players

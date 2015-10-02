@@ -1,7 +1,7 @@
-require './lib/game_constants'
+require_relative 'game_pieces'
 
 class Board < Hash
-  include GameConstants
+  include GamePieces
   attr_accessor :size
   
   def initialize(size)

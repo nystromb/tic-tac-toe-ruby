@@ -1,5 +1,5 @@
 class GameOutput
-  include GameConstants
+  include GamePieces
 
   def puts(string = "\n")
     $stdout.puts string

@@ -3,39 +3,28 @@ require_relative '../lib/game_board'
 describe Board do
   let(:board) { Board.new }
   
-  it 'has a board size of 3' do
-    expect(board.size).to eq(3)
+  it 'has a board size of 1 by default' do
+    expect(board.size).to eq(1)
   end
   
-  it 'has a cell count of 9' do
-    expect(board.cell_count).to eq(9)
+  it 'has a cell count of 1^2 == 1' do
+    expect(board.cell_count).to eq(1)
   end
   
-  it 'win is false if no moves have been played' do
-    expect(board.win(GamePieces::X)).to be_falsey
+  it 'initializes the board spots to EMPTY' do
+    expect(board.fetch(1)).to eq (GamePieces::EMPTY)  
   end
   
-  it 'win is true if three Pieces in a row at 1, 2, 3' do
+  it 'can return the empty spots on the board' do
+    expect(board.empty_spots).to eq([1])
+  end
+  
+  it 'can get the amount of empty spots' do
+    expect(board.empty_spots.length).to eq(1)
+  end
+  
+  it 'can tell you if the board is empty' do
     board.place(1, GamePieces::X)
-    board.place(2, GamePieces::X)
-    board.place(3, GamePieces::X)
-    
-    expect(board.win(GamePieces::X)).to be_truthy
-  end
-  
-  it 'win is true if three Pieces in a row at 4, 5, 6' do
-    board.place(4, GamePieces::X)
-    board.place(5, GamePieces::X)
-    board.place(6, GamePieces::X)
-    
-    expect(board.win(GamePieces::X)).to be_truthy
-  end
-  
-  it 'win is true if three Pieces in a row at 7, 8, 9' do
-    board.place(4, GamePieces::O)
-    board.place(5, GamePieces::O)
-    board.place(6, GamePieces::O)
-    
-    expect(board.win(GamePieces::O)).to be_truthy
+    expect(board.empty_spots.length).to eq(0)
   end
 end

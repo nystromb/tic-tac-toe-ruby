@@ -8,8 +8,8 @@ class Model
 
   attr_reader :board, :current_player, :players
 
-  def initialize(mode, size)
-    @board = Board.new(size)
+  def initialize(board, mode)
+    @board = board
     @players = PlayerFactory.createPlayers(mode)
     set_current_player
   end

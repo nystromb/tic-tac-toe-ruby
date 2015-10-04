@@ -1,4 +1,6 @@
 require './lib/game_model'
+require './lib/game_three_by_three_board'
+require './lib/game_four_by_four_board'
 
 class GameRunner
 
@@ -18,14 +20,14 @@ class GameRunner
     @output.print "Do you want to play on a 4x4 board? y/n\n"
     @board_size = @input.gets
     if (@board_size == "y" || @board_size == "y\n")
-      @board_size = 4
+      @board = FourByFourBoard.new
     else
-      @board_size = 3
+      @board = ThreeByThreeBoard.new
     end
 
-    @output.print "The board size is #{@board_size}x#{@board_size}\n"
+    @output.print "The board size is #{@board.size}x#{@board.size}\n"
 
-    @game = Model.new(Board.new, @mode)
+    @game = Model.new(@board, @mode)
   end
 
   def run

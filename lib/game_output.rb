@@ -1,12 +1,12 @@
 class GameOutput
-  include GameConstants
-
-  def puts(string = "\n")
-    $stdout.puts string
+  include GamePieces
+  
+  def puts(string)
+    $stdout.print string + "\n"
   end
-
+  
   def print(string)
-    $stdout.print string
+    $stdout.print string  
   end
 
   def display_board(board)

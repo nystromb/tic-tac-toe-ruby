@@ -1,26 +1,32 @@
-require 'stringio'
-
-class GameOutput < StringIO
+class GameOutput
   include GamePieces
-
+  
+  def puts(string)
+    $stdout.print string + "\n"
+  end
+  
+  def print(string)
+    $stdout.print string  
+  end
+  
   def display_board(board)
     board.each do |spot, contents|
-      self.print contents
+      $stdout.print contents
       if (spot % board.size) == 0
-        self.puts
+        $stdout.puts
       else
-        self.print "|"
+        $stdout.print "|"
       end
     end
   end
 
   def display_winner(board)
     if board.win(X)
-      self.print "X wins\n"
+      $stdout.print "X wins\n"
     elsif board.win(O)
-      self.print "O wins\n"
+      $stdout.print "O wins\n"
     else
-      self.print "Draw game\n"
+      $stdout.print "Draw game\n"
     end
   end
 end

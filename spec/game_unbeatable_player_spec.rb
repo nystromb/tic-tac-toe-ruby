@@ -4,7 +4,7 @@ require 'game_model'
 
 describe UnbeatablePlayer do
   let(:player) { UnbeatablePlayer.new }
-  let(:board) { ThreeByThreeBoard.new }
+  let(:board) { Board.new }
   let(:model) { Model.new(board, GameModes::COMPUTER_VS_COMPUTER) }
 
   it 'return a valid move' do

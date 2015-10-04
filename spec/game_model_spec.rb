@@ -1,7 +1,7 @@
 require 'game_model'
 
 describe Model do
-  let(:board) { ThreeByThreeBoard.new }
+  let(:board) { Board.new }
   let(:model) { Model.new(board, GameModes::HUMAN_VS_HUMAN)}
 
   it '#move_is_valid returns true for input 1' do

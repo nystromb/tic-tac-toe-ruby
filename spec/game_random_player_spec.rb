@@ -2,10 +2,12 @@ require 'game_random_player'
 require 'game_model'
 
 describe RandomPlayer do
-  let(:player) { RandomPlayer.new }
+  let(:board) { ThreeByThreeBoard.new }
+  let(:player) { described_class.new }
 
   it 'gets move' do
-    game = Model.new(1, 3)
+    game = Model.new(board, GameModes::COMPUTER_VS_COMPUTER)
+    
     move = player.get_move(game)
 
     expect(1 <= move).to be_truthy
@@ -13,16 +15,16 @@ describe RandomPlayer do
   end
 
   it 'gets open move' do
-    model = Model.new(1, 3)
+    model = Model.new(board, GameModes::COMPUTER_VS_COMPUTER)
 
-    model.play(1, GameConstants::X)
-    model.play(2, GameConstants::X)
-    model.play(3, GameConstants::X)
-    model.play(4, GameConstants::X)
-    model.play(5, GameConstants::X)
-    model.play(6, GameConstants::X)
-    model.play(7, GameConstants::X)
-    model.play(8, GameConstants::X)
+    model.play(1, GamePieces::X)
+    model.play(2, GamePieces::X)
+    model.play(3, GamePieces::X)
+    model.play(4, GamePieces::X)
+    model.play(5, GamePieces::X)
+    model.play(6, GamePieces::X)
+    model.play(7, GamePieces::X)
+    model.play(8, GamePieces::X)
 
     expect(player.get_move(model)).to eq(9)
   end

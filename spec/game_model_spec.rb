@@ -1,9 +1,11 @@
 require 'game_model'
 require 'game_modes'
+require 'game_player_factory'
 
 describe Model do
   let(:board) { ThreeByThreeBoard.new }
-  let(:model) { Model.new(board, GameModes::HUMAN_VS_HUMAN)}
+  let(:players) { PlayerFactory.createPlayers(GameModes::HUMAN_VS_HUMAN) }
+  let(:model) { Model.new(board, players)}
 
   it '#move_is_valid returns true for input 1' do
     expect(model.move_is_valid(1)).to eq(true)
@@ -66,27 +68,35 @@ describe Model do
   end
 
   it 'player1 is a Player when game mode is Human vs Computer' do
-    model = Model.new(board, GameModes::HUMAN_VS_COMPUTER)
+    players = PlayerFactory.createPlayers(GameModes::HUMAN_VS_COMPUTER)
+    
+    model = Model.new(board, players)
 
     expect(model.players[1].class).to eq(Player)
   end
 
-  it 'player2 is a RandomPlayer when game mode is Human vs Computer' do
-    model = Model.new(board, GameModes::HUMAN_VS_COMPUTER)
+  it 'player2 is a RandomPlayer when game mode is Human vs Computer' do 
+    players = PlayerFactory.createPlayers(GameModes::HUMAN_VS_COMPUTER)
+
+    model = Model.new(board, players)
 
     expect(model.players[2].class).to eq(UnbeatablePlayer)
   end
 
   it 'player1 is a RandomPlayer when the game mode is Computer vs Computer' do
-    model = Model.new(board, GameModes::COMPUTER_VS_COMPUTER)
+    players = PlayerFactory.createPlayers(GameModes::COMPUTER_VS_COMPUTER)
+      
+    model = Model.new(board, players)
 
     expect(model.players[1].class).to eq(UnbeatablePlayer)
   end
 
   it 'player2 is a RandomPlayer when the game mode is Computer vs Computer' do
-    test_model = Model.new(board, GameModes::COMPUTER_VS_COMPUTER)
+    players = PlayerFactory.createPlayers(GameModes::COMPUTER_VS_COMPUTER)
 
-    expect(test_model.players[2].class).to eq(UnbeatablePlayer)
+    model = Model.new(board, players)
+
+    expect(model.players[2].class).to eq(UnbeatablePlayer)
   end
 
   it 'switches current_player from player1 turn to player2' do

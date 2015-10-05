@@ -1,18 +1,11 @@
-require 'game_four_by_four_board'
+require 'game_board'
+require 'four_by_four_strategy'
 
-describe FourByFourBoard do
-  let(:board) { FourByFourBoard.new }
-  
-  it 'is a board' do
-    expect(board.is_a? Board).to be_truthy
-  end
+describe Board do
+  let(:board) { Board.new(FourByFourBoard.new) }
   
   it 'size is 4' do 
     expect(board.size).to eq(4)
-  end
-  
-  it 'has 16 cells' do
-    expect(board.cell_count).to eq(16)  
   end
   
   it 'first spot is empty' do

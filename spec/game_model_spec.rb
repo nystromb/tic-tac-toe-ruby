@@ -1,9 +1,11 @@
+require 'game_board'
+require 'three_by_three_strategy.rb'
 require 'game_model'
 require 'game_modes'
 require 'game_player_factory'
 
 describe Model do
-  let(:board) { ThreeByThreeBoard.new }
+  let(:board) { Board.new(ThreeByThreeBoard.new) }
   let(:players) { PlayerFactory.createPlayers(GameModes::HUMAN_VS_HUMAN) }
   let(:model) { Model.new(board, players)}
 

@@ -1,6 +1,6 @@
 require './lib/game_model'
-require './lib/game_three_by_three_board.rb'
-require './lib/game_four_by_four_board.rb'
+require './lib/three_by_three_strategy.rb'
+require './lib/four_by_four_strategy.rb'
 
 class GameRunner
   include PlayerFactory
@@ -20,9 +20,9 @@ class GameRunner
     @output.print "Do you want to play on a 4x4 board? y/n\n"
     @board_size = @input.gets
     if (@board_size == "y" || @board_size == "y\n")
-      @board = FourByFourBoard.new
+      @board = Board.new(FourByFourBoard.new)
     else
-      @board = ThreeByThreeBoard.new
+      @board = Board.new(ThreeByThreeBoard.new)
     end
 
     @output.print "The board size is #{@board.size}x#{@board.size}\n"

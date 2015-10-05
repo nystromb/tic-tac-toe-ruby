@@ -1,80 +1,66 @@
-
 require 'game_unbeatable_player'
 require 'game_model'
 
 describe UnbeatablePlayer do
   let(:player) { UnbeatablePlayer.new }
-  let(:board) { Board.new(3) }
-  let(:model) { Model.new(3, 3) }
+  let(:board) { ThreeByThreeBoard.new }
+  let(:model) { Model.new(board, GameModes::COMPUTER_VS_COMPUTER) }
 
   it 'return a valid move' do
-    test_model = model
+    move = model.current_player.get_move(model)
 
-    move = test_model.current_player.get_move(test_model)
-
-    expect(test_model.move_is_valid(move)).to be_truthy
+    expect(model.move_is_valid(move)).to be_truthy
   end
 
   it 'scores 10 if x wins' do
-    test_board = board
+    board.place(1, "X")
+    board.place(2, "X")
+    board.place(3, "X")
 
-    test_board.place(1, "X")
-    test_board.place(2, "X")
-    test_board.place(3, "X")
-
-    expect(player.score(test_board, 0)).to eq(10)
+    expect(player.score(board, 0)).to eq(10)
   end
 
   it 'scores -10 if o wins' do
-    test_board = board
+    board.place(1, "O")
+    board.place(4, "O")
+    board.place(7, "O")
 
-    test_board.place(1, "O")
-    test_board.place(4, "O")
-    test_board.place(7, "O")
-
-    expect(player.score(test_board, 0)).to eq(-10)
+    expect(player.score(board, 0)).to eq(-10)
   end
 
   it 'scores 0 if it is a draw game board' do
-    test_board = board
+    board.place(1, "X")
+    board.place(2, "X")
+    board.place(3, "O")
+    board.place(4, "O")
+    board.place(5, "O")
+    board.place(6, "X")
+    board.place(7, "X")
+    board.place(8, "O")
+    board.place(9, "X")
 
-    test_board.place(1, "X")
-    test_board.place(2, "X")
-    test_board.place(3, "O")
-    test_board.place(4, "O")
-    test_board.place(5, "O")
-    test_board.place(6, "X")
-    test_board.place(7, "X")
-    test_board.place(8, "O")
-    test_board.place(9, "X")
-
-    expect(player.score(test_board, 0)).to eq(0)
+    expect(player.score(board, 0)).to eq(0)
   end
 
   it 'should return 3 as the best move' do
-    test_model = model
+    model.play(2)
+    model.switch_turns
+    model.play(7)
+    model.switch_turns
+    model.play(6)
+    model.switch_turns
+    model.play(8)
+    model.switch_turns
+    model.play(9)
+    model.switch_turns
 
-    test_model.play(2)
-    test_model.switch_turns
-    test_model.play(7)
-    test_model.switch_turns
-    test_model.play(6)
-    test_model.switch_turns
-    test_model.play(8)
-    test_model.switch_turns
-    test_model.play(9)
-    test_model.switch_turns
-
-    expect(test_model.current_player.get_move(test_model)).to eq(3)
+    expect(model.current_player.get_move(model)).to eq(3)
   end
 
-    it 'scores games if the game model is end game' do
-    test_model = model
+  it 'scores games if the game model is end game' do
+    model.play(1)
+    model.switch_turns
 
-    test_model.play(1)
-    test_model.switch_turns
-
-    expect(test_model.current_player.get_move(test_model)).to eq(5)
+    expect(model.current_player.get_move(model)).to eq(5)
   end
-
 end

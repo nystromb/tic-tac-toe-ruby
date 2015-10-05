@@ -1,15 +1,15 @@
-require './lib/game_constants'
+require './lib/game_pieces'
 require './lib/game_board'
 require './lib/game_player_factory'
 
 class Model
-  include GameConstants
+  include GamePieces
   include PlayerFactory
 
   attr_reader :board, :current_player, :players
 
-  def initialize(mode, size)
-    @board = Board.new(size)
+  def initialize(board, mode)
+    @board = board
     @players = PlayerFactory.createPlayers(mode)
     set_current_player
   end

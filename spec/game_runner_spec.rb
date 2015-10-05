@@ -1,9 +1,10 @@
 require 'stringio'
 require 'game_runner'
 require 'game_player_factory'
+require 'game_pieces'
 
 class MockOutput < StringIO
-  include GameConstants
+  include GamePieces
 
   def display_board(board)
     board.each do |spot, contents|

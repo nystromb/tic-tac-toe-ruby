@@ -1,8 +1,8 @@
-require './lib/game_constants'
+require './lib/game_pieces'
 require './lib/game_player'
 
 class UnbeatablePlayer < Player
-  include GameConstants
+  include GamePieces
   
   def get_move(game, depth = 0)
     return score(game.board, depth) if game.is_over?

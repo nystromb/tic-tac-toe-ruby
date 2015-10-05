@@ -19,15 +19,19 @@ class Board < Hash
 
   def empty_spots
     empty_spots = []
-    self.each { |index, peice| empty_spots << index if peice == EMPTY }
+    self.each { |index, piece| empty_spots << index if piece == EMPTY }
     empty_spots
   end
   
   def win(game_piece)
     win_indexes.each do |index|
-      return true if (self.fetch(index[0]) == game_piece) && (self.fetch(index[1]) == game_piece) && (self.fetch(index[2]) == game_piece)
+      return true if win_lineup(index, game_piece)
     end
     return false
+  end
+
+  def win_lineup(index, game_piece)
+    raise "Implement method"
   end
 
   def cell_count

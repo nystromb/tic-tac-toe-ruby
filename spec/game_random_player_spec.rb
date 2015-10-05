@@ -2,7 +2,7 @@ require 'game_random_player'
 require 'game_model'
 
 describe RandomPlayer do
-  let(:board) { ThreeByThreeBoard.new }
+  let(:board) { Board.new(ThreeByThreeBoard.new) }
   let(:player) { described_class.new }
 
   it 'gets move' do

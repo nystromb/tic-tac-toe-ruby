@@ -1,9 +1,11 @@
 require 'game_unbeatable_player'
+require 'game_board'
+require 'three_by_three_strategy.rb'
 require 'game_model'
 
 describe UnbeatablePlayer do
   let(:player) { UnbeatablePlayer.new }
-  let(:board) { ThreeByThreeBoard.new }
+  let(:board) { Board.new(ThreeByThreeBoard.new) }
   let(:players) { PlayerFactory.createPlayers(GameModes::COMPUTER_VS_COMPUTER) }
   let(:model) { Model.new(board, players) }
 

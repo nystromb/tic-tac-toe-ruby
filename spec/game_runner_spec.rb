@@ -1,5 +1,6 @@
 require 'stringio'
 require 'game_runner'
+require 'game_player_factory'
 
 class MockOutput < StringIO
   include GameConstants

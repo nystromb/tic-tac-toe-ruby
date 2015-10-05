@@ -4,7 +4,8 @@ require 'game_model'
 describe UnbeatablePlayer do
   let(:player) { UnbeatablePlayer.new }
   let(:board) { ThreeByThreeBoard.new }
-  let(:model) { Model.new(board, GameModes::COMPUTER_VS_COMPUTER) }
+  let(:players) { PlayerFactory.createPlayers(GameModes::COMPUTER_VS_COMPUTER) }
+  let(:model) { Model.new(board, players) }
 
   it 'return a valid move' do
     move = model.current_player.get_move(model)

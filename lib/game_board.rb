@@ -1,15 +1,9 @@
-require './lib/game_constants'
+require_relative 'game_pieces'
 
 class Board < Hash
-  include GameConstants
-  attr_accessor :size
+  include GamePieces
   
-  def initialize(size)
-    @win_rules = {
-      3 => [[1,2,3],[4,5,6],[7,8,9],[1,4,7],[2,5,8],[3,6,9],[1,5,9],[3,5,7]], 
-      4 => [[1,2,3,4], [5,6,7,8], [9,10,11,12], [13,14,15,16], [1,5,9,13], [2,6,10,14], [3,7,11,15], [4,8,12,16],[1,6,11,16],[4,7,10,13]]
-      }
-    @size = size
+  def initialize
     clear
   end
 
@@ -28,19 +22,19 @@ class Board < Hash
     self.each { |index, peice| empty_spots << index if peice == EMPTY }
     empty_spots
   end
+  
+  def win(game_piece)
+    win_indexes.each do |index|
+      return true if (self.fetch(index[0]) == game_piece) && (self.fetch(index[1]) == game_piece) && (self.fetch(index[2]) == game_piece)
+    end
+    return false
+  end
 
   def cell_count
     (size**2)
   end
-
-  def win(game_peice)
-    @win_rules[@size].each do |index|
-      if @size == 4
-        return true if ((self.fetch(index[0]) == game_peice) && (self.fetch(index[1]) == game_peice) && (self.fetch(index[2]) == game_peice) && (self.fetch(index[3]) == game_peice))
-      elsif @size == 3
-        return true if ((self.fetch(index[0]) == game_peice) && (self.fetch(index[1]) == game_peice) && (self.fetch(index[2]) == game_peice))
-      end
-    end
-    return false
+   
+  def win_indexes
+    raise "Implement method"
   end
 end

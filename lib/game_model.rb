@@ -3,14 +3,12 @@ require './lib/game_board'
 require './lib/game_player_factory'
 
 class Model
-  include GamePieces
-  include PlayerFactory
-
+  include GamePieces 
   attr_reader :board, :current_player, :players
 
-  def initialize(board, mode)
+  def initialize(board, players)
     @board = board
-    @players = PlayerFactory.createPlayers(mode)
+    @players = players 
     set_current_player
   end
 
@@ -21,7 +19,6 @@ class Model
   def move_is_valid(move)
     (@board[move] == EMPTY) && (move >= 1 && move <= @board.cell_count)
   end
-
   def is_over?
     (@board.empty_spots.length == 0) || @board.win(X) || @board.win(O)
   end

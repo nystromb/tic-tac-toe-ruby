@@ -2,9 +2,15 @@ require_relative 'game_pieces'
 
 class Board < Hash
   include GamePieces
-  
-  def initialize
+  attr_accessor :strategy
+
+  def initialize(strategy)
+    @strategy = strategy
     clear
+  end
+  
+  def size 
+    @strategy.size
   end
 
   def clear
@@ -24,10 +30,7 @@ class Board < Hash
   end
   
   def win(game_piece)
-    win_indexes.each do |index|
-      return true if win_lineup(index, game_piece)
-    end
-    return false
+    @strategy.win(self, game_piece)
   end
 
   def win_lineup(index, game_piece)
@@ -35,7 +38,7 @@ class Board < Hash
   end
 
   def cell_count
-    (size**2)
+    (@strategy.size**2)
   end
    
   def win_indexes

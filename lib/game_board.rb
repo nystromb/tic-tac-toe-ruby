@@ -12,6 +12,10 @@ class Board < Hash
   def size 
     @strategy.size
   end
+  
+  def cell_count
+    (@strategy.size**2)
+  end
 
   def clear
     for spot in 1..self.cell_count
@@ -31,17 +35,5 @@ class Board < Hash
   
   def win(game_piece)
     @strategy.win(self, game_piece)
-  end
-
-  def win_lineup(index, game_piece)
-    raise "Implement method"
-  end
-
-  def cell_count
-    (@strategy.size**2)
-  end
-   
-  def win_indexes
-    raise "Implement method"
   end
 end

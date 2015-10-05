@@ -53,4 +53,12 @@ describe FourByFourBoard do
     
     expect(board.win(GamePieces::O)).to be_truthy
   end
+  
+  it 'does not win when three game pieces are in a row' do
+    board.place(1, GamePieces::X)
+    board.place(2, GamePieces::X)
+    board.place(3, GamePieces::X)
+    
+    expect(board.win(GamePieces::X)).to be_falsey
+  end
 end

@@ -11,7 +11,7 @@ class FourByFourBoard < Board
   end
   
   def win_lineup(index, game_piece)
-    (self.fetch(index[0]) == game_piece) && (self.fetch(index[1]) == game_piece) && (self.fetch(index[2]) == game_piece)  
+    (self.fetch(index[0]) == game_piece) && (self.fetch(index[1]) == game_piece) && (self.fetch(index[2]) == game_piece) && (self.fetch(index[3]) == game_piece)  
   end
   
   def win_indexes

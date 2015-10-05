@@ -1,4 +1,4 @@
-module GamePeices
+module GamePieces
   X = "X"
   O = "O"
   EMPTY = "-"

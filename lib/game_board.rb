@@ -34,6 +34,9 @@ class Board < Hash
   end
   
   def win(game_piece)
-    @strategy.win(self, game_piece)
+    @strategy.win_indexes.each do |index|
+      return true if @strategy.win_lineup(self, index, game_piece)
+    end
+    return false
   end
 end

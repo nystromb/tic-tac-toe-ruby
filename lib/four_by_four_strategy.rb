@@ -3,13 +3,6 @@ class FourByFourBoard
     4
   end
   
-  def win(board, piece)
-    win_indexes.each do |index| 
-      return true if win_lineup(board, index, piece)
-    end 
-    return false
-  end
-  
   def win_lineup(board, index, piece)
     (board.fetch(index[0]) == piece) && (board.fetch(index[1]) == piece) && (board.fetch(index[2]) == piece) && (board.fetch(index[3]) == piece)  
   end
